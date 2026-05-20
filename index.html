@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Findly Lost & Found</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">AI-powered campus lost & found</p>
+        <h1>Findly</h1>
+      </div>
+      <nav class="tabs" aria-label="Primary">
+        <button class="tab active" data-view="report">Report</button>
+        <button class="tab" data-view="matches">Matches</button>
+        <button class="tab" data-view="items">Items</button>
+        <button class="tab" data-view="admin">Admin</button>
+        <button class="tab" data-view="heatmap">Heatmap</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Context-aware matching</p>
+          <h2>Match lost items with found reports using image, location, time, and category.</h2>
+        </div>
+        <div class="score-card">
+          <span class="score-number" id="systemScore">0</span>
+          <span class="score-label">candidate matches analysed</span>
+        </div>
+      </section>
+
+      <section class="view active" id="reportView">
+        <div class="panel report-panel">
+          <form id="itemForm" class="item-form">
+            <div class="form-grid">
+              <label>
+                Report type
+                <select id="type" required>
+                  <option value="lost">Lost item</option>
+                  <option value="found">Found item</option>
+                </select>
+              </label>
+              <label>
+                Category
+                <select id="category" required>
+                  <option value="phone">Phone</option>
+                  <option value="id">ID card</option>
+                  <option value="bag">Bag</option>
+                  <option value="keys">Keys</option>
+                  <option value="wallet">Wallet</option>
+                  <option value="electronics">Electronics</option>
+                  <option value="other">Other</option>
+                </select>
+              </label>
+              <label>
+                Location
+                <select id="location" required>
+                  <option value="Library">Library</option>
+                  <option value="Cafeteria">Cafeteria</option>
+                  <option value="Main Gate">Main Gate</option>
+                  <option value="Auditorium">Auditorium</option>
+                  <option value="Computer Lab">Computer Lab</option>
+                  <option value="Sports Complex">Sports Complex</option>
+                  <option value="Parking Area">Parking Area</option>
+                </select>
+              </label>
+              <label>
+                Date and time
+                <input id="dateTime" type="datetime-local" required />
+              </label>
+            </div>
+
+            <label>
+              Item image
+              <input id="image" type="file" accept="image/*" required />
+            </label>
+
+            <div class="preview-row">
+              <div class="image-preview" id="imagePreview">Image preview</div>
+              <div class="ai-box">
+                <span class="pill">AI description</span>
+                <p id="generatedDescription">Upload an image to generate a useful description.</p>
+              </div>
+            </div>
+
+            <label>
+              Extra details
+              <textarea id="details" rows="4" placeholder="Brand, color, marks, last seen details..."></textarea>
+            </label>
+
+            <label>
+              Verification question
+              <input id="question" placeholder="Example: What sticker is on the laptop?" required />
+            </label>
+
+            <label>
+              Correct answer
+              <input id="answer" placeholder="Kept private for claim verification" required />
+            </label>
+
+            <button class="primary" type="submit">Submit report</button>
+          </form>
+          <aside class="insight-panel">
+            <h3>What happens next</h3>
+            <p>Findly compares the upload with opposite-type reports, then combines image similarity, distance, category, and time into one match score.</p>
+            <div id="duplicateAlert" class="notice hidden"></div>
+            <div id="notificationList" class="notifications"></div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="view" id="matchesView">
+        <div class="section-head">
+          <h2>Smart Matches</h2>
+          <select id="matchFilter" aria-label="Filter matches">
+            <option value="all">All reports</option>
+          </select>
+        </div>
+        <div id="matchesList" class="match-list empty-state">No matches yet. Add a lost and found report to see scoring.</div>
+      </section>
+
+      <section class="view" id="itemsView">
+        <div class="section-head">
+          <h2>Reports</h2>
+          <button class="ghost" id="seedData">Load demo data</button>
+        </div>
+        <div id="itemsList" class="cards empty-state">No reports yet.</div>
+      </section>
+
+      <section class="view" id="adminView">
+        <div class="section-head">
+          <h2>Claim Review</h2>
+          <span class="muted">Admin approval prevents fake claims.</span>
+        </div>
+        <div id="claimsList" class="cards empty-state">No claims submitted.</div>
+      </section>
+
+      <section class="view" id="heatmapView">
+        <div class="section-head">
+          <h2>Loss Hotspots</h2>
+          <span class="muted">Locations with frequent reports become brighter.</span>
+        </div>
+        <div class="heatmap-shell">
+          <canvas id="heatmap" width="900" height="520" aria-label="Campus heatmap"></canvas>
+          <div id="hotspotSummary" class="hotspot-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="claimDialog">
+      <form method="dialog" id="claimForm">
+        <h3>Verify claim</h3>
+        <p id="claimQuestion"></p>
+        <input id="claimAnswer" placeholder="Your answer" required />
+        <label>
+          Proof note or document reference
+          <textarea id="claimProof" rows="3" placeholder="Example: college ID number, purchase proof, identifying mark"></textarea>
+        </label>
+        <menu>
+          <button value="cancel" class="ghost">Cancel</button>
+          <button value="submit" class="primary">Submit claim</button>
+        </menu>
+      </form>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>

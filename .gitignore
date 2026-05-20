@@ -1,0 +1,48 @@
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Dependency directories
+/.pnp/
+.pnp.js
+
+# Build output
+dist/
+build/
+/.vite/
+
+# Editor directories and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Uploaded files and database
+uploads/
+server/data/
+data/
+
+# Misc
+.cache/
+coverage/
+coverage-final.json
+node_modules
+.env
+uploads
+dist
+coverage
+npm-debug.log*
+server/data/*.json
+!server/data/.gitkeep

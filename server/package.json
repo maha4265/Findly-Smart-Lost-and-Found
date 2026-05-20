@@ -1,0 +1,23 @@
+{
+  "name": "findly-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node src/server.js",
+    "start": "node src/server.js",
+    "create-admin": "node create-admin.js",
+    "seed-demo": "node seed-demo.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^8.9.2",
+    "multer": "^2.0.2",
+    "sharp": "^0.34.5",
+    "socket.io": "^4.8.0"
+  }
+}
